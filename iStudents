@@ -1,0 +1,62 @@
+using System;
+using System.Linq;
+
+public class Student
+{
+    public string LastName { get; set; }
+    public string FirstName { get; set; }
+    public string Patronymic { get; set; }
+    public string Group { get; set; }
+    public int Age { get; set; }
+
+    private int[][] grades; // [0] - программирование, [1] - администрирование, [2] - дизайн
+
+    public Student(string lastName, string firstName, string patronymic,
+                   string group, int age)
+    {
+        LastName = lastName;
+        FirstName = firstName;
+        Patronymic = patronymic;
+        Group = group;
+        Age = age;
+        grades = new int[3][];
+        grades[0] = Array.Empty<int>();
+        grades[1] = Array.Empty<int>();
+        grades[2] = Array.Empty<int>();
+    }
+
+    public void SetGrade(int subjectIndex, int gradeIndex, int value)
+    {
+        if (subjectIndex < 0 || subjectIndex > 2)
+            throw new ArgumentException("subjectIndex: 0-программирование, 1-администрирование, 2-дизайн");
+        if (value < 1 || value > 5)
+            throw new ArgumentException("Оценка от 1 до 5");
+        if (gradeIndex >= grades[subjectIndex].Length)
+            Array.Resize(ref grades[subjectIndex], gradeIndex + 1);
+        grades[subjectIndex][gradeIndex] = value;
+    }
+
+    public int GetGrade(int subjectIndex, int gradeIndex)
+    {
+        if (subjectIndex < 0 || subjectIndex > 2) throw new ArgumentException();
+        if (gradeIndex < 0 || gradeIndex >= grades[subjectIndex].Length)
+            throw new IndexOutOfRangeException("Нет такой оценки");
+        return grades[subjectIndex][gradeIndex];
+    }
+
+    public double GetAverageForSubject(int subjectIndex)
+    {
+        if (subjectIndex < 0 || subjectIndex > 2) return 0;
+        if (grades[subjectIndex].Length == 0) return 0;
+        return grades[subjectIndex].Average();
+    }
+
+    public void PrintInfo()
+    {
+        Console.WriteLine($"\nСтудент: {LastName} {FirstName} {Patronymic}");
+        Console.WriteLine($"Группа: {Group}, возраст: {Age}");
+        Console.WriteLine($"Программирование: {string.Join(", ", grades[0])} (ср. {GetAverageForSubject(0):F2})");
+        Console.WriteLine($"Администрирование: {string.Join(", ", grades[1])} (ср. {GetAverageForSubject(1):F2})");
+        Console.WriteLine($"Дизайн: {string.Join(", ", grades[2])} (ср. {GetAverageForSubject(2):F2})");
+    }
+}
