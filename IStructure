@@ -1,0 +1,75 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+public struct Article
+{
+    public int Code;
+    public string Name;
+    public decimal Price;
+    public ArticleType Type;
+
+    public Article(int code, string name, decimal price, ArticleType type)
+    {
+        Code = code;
+        Name = name;
+        Price = price;
+        Type = type;
+    }
+}
+
+public struct Client
+{
+    public int Code;
+    public string FullName;
+    public string Address;
+    public string Phone;
+    public int OrdersCount;
+    public decimal TotalOrdersSum;
+    public ClientType Importance;
+
+    public Client(int code, string fullName, string address, string phone,
+                  int ordersCount, decimal totalOrdersSum, ClientType importance)
+    {
+        Code = code;
+        FullName = fullName;
+        Address = address;
+        Phone = phone;
+        OrdersCount = ordersCount;
+        TotalOrdersSum = totalOrdersSum;
+        Importance = importance;
+    }
+}
+
+public struct RequestItem
+{
+    public Article Product;
+    public int Quantity;
+
+    public RequestItem(Article product, int quantity)
+    {
+        Product = product;
+        Quantity = quantity;
+    }
+}
+
+public struct Request
+{
+    public int OrderCode;
+    public Client Customer;
+    public DateTime OrderDate;
+    public List<RequestItem> Items;
+    public PayType Payment;
+
+    public decimal TotalSum => Items?.Sum(i => i.Product.Price * i.Quantity) ?? 0;
+
+    public Request(int orderCode, Client customer, DateTime orderDate,
+                   List<RequestItem> items, PayType payment)
+    {
+        OrderCode = orderCode;
+        Customer = customer;
+        OrderDate = orderDate;
+        Items = items;
+        Payment = payment;
+    }
+}
