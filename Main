@@ -1,0 +1,98 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using SevenWonders;
+
+
+namespace Russia
+{
+    public class Moscow
+    {
+        public string Name => "Москва";
+        public long Population => 12_500_000;
+    }
+}
+
+namespace France
+{
+    public class Paris
+    {
+        public string Name => "Париж";
+        public long Population => 2_161_000;
+    }
+}
+
+namespace USA
+{
+    public class Washington
+    {
+        public string Name => "Вашингтон";
+        public long Population => 705_000;
+    }
+}
+
+// Main / Ps Не совсем понял
+class Program
+{
+    static void Main()
+    {
+		// Задание 1-8
+        Console.WriteLine("===== ЗАДАНИЯ 1-8 (структуры, студент) =====\n");
+
+        Article laptop = new Article(101, "Ноутбук", 75000m, ArticleType.Электроника);
+        Article book = new Article(102, "C# для профессионалов", 1200m, ArticleType.Книги);
+
+        Client client = new Client(1, "Иванов Иван Иванович", "ул. Ленина, 1", "+7(123)456-78-90",
+                                   5, 250000m, ClientType.VIP);
+
+        var items = new List<RequestItem>
+        {
+            new RequestItem(laptop, 1),
+            new RequestItem(book, 2)
+        };
+
+        Request order = new Request(1001, client, DateTime.Today, items, PayType.Карта);
+        Console.WriteLine($"Заказ №{order.OrderCode} от {order.OrderDate:dd.MM.yyyy}");
+        Console.WriteLine($"Клиент: {order.Customer.FullName} ({order.Customer.Importance})");
+        Console.WriteLine($"Общая сумма заказа: {order.TotalSum} руб.");
+        Console.WriteLine($"Оплата: {order.Payment}");
+
+        Student student = new Student("Петров", "Алексей", "Сергеевич", "ИС-31", 20);
+        student.SetGrade(0, 0, 5);
+        student.SetGrade(0, 1, 4);
+        student.SetGrade(1, 0, 3);
+        student.SetGrade(2, 0, 5);
+        student.SetGrade(2, 1, 4);
+        student.PrintInfo();
+
+        // Задание 9
+        Console.WriteLine("\n===== ЗАДАНИЕ 9: Семь чудес света =====");
+        Wonder[] wonders = new Wonder[]
+        {
+            new GreatPyramid(),
+            new HangingGardens(),
+            new StatueOfZeus(),
+            new TempleOfArtemis(),
+            new Mausoleum(),
+            new ColossusOfRhodes(),
+            new LighthouseOfAlexandria()
+        };
+        foreach (var w in wonders) w.ShowInfo();
+
+        // Задание 10
+        Console.WriteLine("\n===== ЗАДАНИЕ 10: Сравнение населения столиц =====");
+        var moscow = new Russia.Moscow();
+        var paris = new France.Paris();
+        var washington = new USA.Washington();
+
+        var capitals = new (string name, long pop)[]
+        {
+            (moscow.Name, moscow.Population),
+            (paris.Name, paris.Population),
+            (washington.Name, washington.Population)
+        };
+        var sorted = capitals.OrderByDescending(c => c.pop);
+        foreach (var c in sorted)
+            Console.WriteLine($"{c.name}: {c.pop:N0} чел.");
+    }
+}
