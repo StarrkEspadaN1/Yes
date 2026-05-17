@@ -1,0 +1,81 @@
+using System;
+
+namespace SevenWonders
+{
+    public abstract class Wonder
+    {
+        public string Name { get; protected set; }
+        public string Location { get; protected set; }
+        public abstract void ShowInfo();
+    }
+
+    public class GreatPyramid : Wonder
+    {
+        public GreatPyramid()
+        {
+            Name = "Пирамида Хеопса";
+            Location = "Гиза, Египет";
+        }
+        public override void ShowInfo() => Console.WriteLine($"{Name} – {Location}. Единственное сохранившееся чудо.");
+    }
+
+    public class HangingGardens : Wonder
+    {
+        public HangingGardens()
+        {
+            Name = "Висячие сады Семирамиды";
+            Location = "Вавилон, Ирак";
+        }
+        public override void ShowInfo() => Console.WriteLine($"{Name} – {Location}. Существование не доказано.");
+    }
+
+    public class StatueOfZeus : Wonder
+    {
+        public StatueOfZeus()
+        {
+            Name = "Статуя Зевса в Олимпии";
+            Location = "Олимпия, Греция";
+        }
+        public override void ShowInfo() => Console.WriteLine($"{Name} – {Location}.");
+    }
+
+    public class TempleOfArtemis : Wonder
+    {
+        public TempleOfArtemis()
+        {
+            Name = "Храм Артемиды в Эфесе";
+            Location = "Эфес, Турция";
+        }
+        public override void ShowInfo() => Console.WriteLine($"{Name} – {Location}.");
+    }
+
+    public class Mausoleum : Wonder
+    {
+        public Mausoleum()
+        {
+            Name = "Мавзолей в Галикарнасе";
+            Location = "Бодрум, Турция";
+        }
+        public override void ShowInfo() => Console.WriteLine($"{Name} – {Location}.");
+    }
+
+    public class ColossusOfRhodes : Wonder
+    {
+        public ColossusOfRhodes()
+        {
+            Name = "Колосс Родосский";
+            Location = "Родос, Греция";
+        }
+        public override void ShowInfo() => Console.WriteLine($"{Name} – {Location}.");
+    }
+
+    public class LighthouseOfAlexandria : Wonder
+    {
+        public LighthouseOfAlexandria()
+        {
+            Name = "Александрийский маяк";
+            Location = "Александрия, Египет";
+        }
+        public override void ShowInfo() => Console.WriteLine($"{Name} – {Location}.");
+    }
+}
